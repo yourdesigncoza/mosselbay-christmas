@@ -3,7 +3,7 @@
 A one-page site for letting the house over Christmas 2026, plus a printable A6 card with a QR code that links to it.
 
 - Page: `index.html` → https://yourdesigncoza.github.io/mosselbay-christmas/
-- Card: `card.html` (one A6 card) and `card.html?sheet=a4` (four on A4). Ready-made PDFs are in `print/`.
+- Card: `card.html` (one A6 card) and `card.html?sheet=a4` (four on A4). Ready-made files are in `print/`: `kliper.pdf` (A6), `kliper.png` (the same card as an image for WhatsApp and social media) and `card-a4.pdf` (four to cut out).
 
 ## Changing dates, prices or bookings
 
@@ -26,7 +26,7 @@ Run these from the project root:
 | Web photos + `og.jpg` | `python3 tools/build_images.py` | after changing the photo choice (raw photos in `images_raw/`, not in git) |
 | Base map | `python3 tools/build_map.py` | rarely; data in `tools/data/` |
 | QR code | `python3 tools/build_qr.py` (needs `pip install segno`) | if the site address changes |
-| Card PDFs | `./tools/build_card.sh` (needs Google Chrome) | after changing the card, config or QR |
+| Card PDFs + PNG | `./tools/build_card.sh` (needs Google Chrome and `pdftoppm` from poppler-utils) | after changing the card, config or QR |
 
 The QR code encodes the `og:url` in `index.html`, so that's the one place the address lives.
 
