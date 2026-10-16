@@ -13,7 +13,7 @@ h1, h2, h3, p { margin: 0; }
 .icon { width: 1.3em; height: 1.3em; flex: none; }
 
 /* ---------- Type ---------- */
-.eyebrow, .minor-title, .hero-meta, .fine, .place-dist, .cal-legend, .dow {
+.eyebrow, .minor-title, .hero-meta, .fine, .credit, .place-dist, .cal-legend, .dow {
   font-family: var(--font-mono);
 }
 .eyebrow { font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
@@ -229,6 +229,8 @@ a.pin:hover .pin-label, a.pin:focus .pin-label { fill: var(--harbour); }
 .contact .lede { color: #CFE0E4; }
 .contact .lede a { color: #fff; font-weight: 700; overflow-wrap: anywhere; }
 .contact .fine { color: #9FBAC2; }
+.credit { margin-top: 44px; padding-top: 16px; border-top: 1px solid rgb(255 255 255 / .14); font-size: .78rem; letter-spacing: .04em; color: #9FBAC2; }
+.credit a { color: #fff; font-weight: 600; text-underline-offset: 3px; }
 
 /* ---------- Bottom bar (phones) ---------- */
 .dock {
