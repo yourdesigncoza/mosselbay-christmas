@@ -1,0 +1,30 @@
+/* Shared by the page and the printable card. */
+:root {
+  color-scheme: light;
+  --mist: #EEF4F3;
+  --paper: #FFFFFF;
+  --ink: #0F3442;
+  --ink-soft: #3D5B66;
+  --harbour: #1D6F8A;
+  --harbour-deep: #155A72;
+  --harbour-pale: #D3E6EC;
+  --sandstone: #C98F3E;
+  --land: #EAD9B2;
+  --sand: #F6E9C9;
+  --postbox: #B23A2B;
+  --whatsapp: #1A7F4B;
+
+  --font-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --font-body: 'Lexend', system-ui, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono', ui-monospace, monospace;
+}
+
+/* Postmark (markup comes from common.js) */
+.postmark-svg { display: block; width: 100%; height: auto; color: var(--postbox); overflow: visible; }
+.pm-waves path, .pm-ring-line { fill: none; stroke: currentColor; stroke-linecap: round; }
+.pm-waves path { stroke-width: 3.5; }
+.pm-ring-line { stroke-width: 4; }
+.pm-thin { stroke-width: 2.5; }
+.pm-ring { font: 600 15px var(--font-mono); letter-spacing: 3px; text-transform: uppercase; fill: currentColor; }
+.pm-date { font: 800 31px var(--font-display); letter-spacing: 1px; text-transform: uppercase; fill: currentColor; }
+.pm-to { font: 600 12px var(--font-mono); letter-spacing: 2px; text-transform: uppercase; fill: currentColor; }

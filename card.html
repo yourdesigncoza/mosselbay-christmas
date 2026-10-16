@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mossel Bay holiday home · printable card</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&family=Lexend:wght@400;600;700&family=Big+Shoulders+Display:wght@700;800&display=swap">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <style>
+    /* A6 postcard (105 x 148 mm). card.html?sheet=a4 prints four on one A4 page for cutting. */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body { background: #d9e2e3; font-family: var(--font-body); color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .sheet { display: grid; gap: 10mm; justify-content: center; padding: 10mm; }
+    .sheet.a4 { grid-template-columns: repeat(2, 105mm); gap: 0; }
+    .card {
+      position: relative; width: 105mm; height: 148mm; background: #fff; padding: 5mm;
+      display: grid; grid-template-rows: 74mm 1fr; overflow: hidden;
+      box-shadow: 0 2mm 6mm rgb(0 0 0 / .18);
+    }
+    .sheet.a4 .card { height: 148.5mm; box-shadow: none; outline: .2mm dashed #c4cfd1; outline-offset: -.1mm; }
+    .photo { position: relative; }
+    .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; display: block; }
+    .card .postmark { position: absolute; right: 1mm; top: 2mm; width: 50mm; transform: rotate(-8deg); mix-blend-mode: multiply; opacity: .92; }
+    .body { padding: 6mm 1mm 0; display: grid; grid-template-rows: auto auto 1fr; }
+    .eyebrow { font: 600 7pt var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--harbour-deep); }
+    h1 { margin: 1.5mm 0 0; font: 800 44pt/.85 var(--font-display); text-transform: uppercase; letter-spacing: -.005em; }
+    .lede { margin: 2mm 0 0; font: 600 10pt/1.3 var(--font-body); }
+    .foot { align-self: end; display: grid; grid-template-columns: 1fr 27mm; gap: 4mm; align-items: end; border-top: .5mm solid var(--ink); padding-top: 3mm; }
+    .facts { margin: 0; padding: 0; list-style: none; font: 8.5pt/1.45 var(--font-body); }
+    .facts strong { font-weight: 700; }
+    .phone { margin-top: 1.5mm; font: 800 17pt/1 var(--font-display); letter-spacing: .02em; }
+    .qr { text-align: center; }
+    .qr img { width: 27mm; height: 27mm; display: block; }
+    .qr span { display: block; margin-top: 1mm; font: 600 6pt/1.25 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+    @media print {
+      body { background: none; }
+      .sheet { padding: 0; gap: 0; }
+      .card { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+  <style id="page-size">@page { size: 105mm 148mm; margin: 0; }</style>
+</head>
+<body>
+  <main class="sheet" data-sheet></main>
+
+  <template id="card">
+    <article class="card">
+      <div class="photo">
+        <img src="assets/img/photos/stoep-view-1600.webp" alt="">
+        <div class="postmark" data-postmark></div>
+      </div>
+      <div class="body">
+        <p class="eyebrow" style="margin:0">Holiday home to let</p>
+        <div>
+          <h1>Mossel Bay</h1>
+          <p class="lede">A summer Christmas above the harbour.</p>
+        </div>
+        <div class="foot">
+          <div>
+            <ul class="facts">
+              <li><strong>Sleeps 8</strong> · sea views over the harbour</li>
+              <li><span data-fill="seasonStart"></span> – <span data-fill="seasonEnd"></span></li>
+              <li>From <strong data-fill="rateFrom"></strong> a night · <span data-fill="minNights"></span>–<span data-fill="maxNights"></span> nights</li>
+            </ul>
+            <div class="phone" data-fill="phone"></div>
+          </div>
+          <div class="qr">
+            <img src="assets/img/qr.svg" alt="QR code linking to the holiday home page">
+            <span>Scan for photos, dates &amp; prices</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="assets/js/config.js"></script>
+  <script>
+    // One card on A6, or four on A4 with ?sheet=a4.
+    const a4 = new URLSearchParams(location.search).get('sheet') === 'a4';
+    const sheet = document.querySelector('[data-sheet]');
+    const tpl = document.getElementById('card');
+    sheet.classList.toggle('a4', a4);
+    for (let i = 0; i < (a4 ? 4 : 1); i++) sheet.append(tpl.content.cloneNode(true));
+    if (a4) document.getElementById('page-size').textContent = '@page { size: A4; margin: 0; }';
+  </script>
+  <script src="assets/js/common.js"></script>
+</body>
+</html>
