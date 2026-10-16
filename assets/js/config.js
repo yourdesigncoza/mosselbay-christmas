@@ -17,7 +17,7 @@ window.SITE = {
   contact: { phone: '084 868 2186', email: 'marisajansevanvuuren3@gmail.com' },
 
   // Gallery order, as a walk through the house. "wide" photos take a full row on phones and a 2x2 block on
-  // computers; keep the plain photos between wide ones in multiples of 4 so the grid has no gaps. The last one is the banner.
+  // computers; keep the plain photos between wide ones in multiples of 4 so the grid has no gaps. A wide photo placed last becomes a full-width banner.
   photos: [
     { src: 'front', caption: 'Double garage, plus parking behind the electric gate', wide: true },
     { src: 'entrance', caption: 'Front door' },
@@ -35,10 +35,9 @@ window.SITE = {
     { src: 'bedroom-2', caption: 'Bedroom 2, double bed' },
     { src: 'bedroom-2b', caption: 'Bedroom 2, window over the bay' },
     { src: 'bathroom', caption: 'Bathroom with shower' },
-    { src: 'bathroom-2', caption: 'Second bathroom, with a bath' },
-    { src: 'braai-patio', caption: 'Enclosed braai patio with a sea view' },
-    { src: 'braai', caption: 'Built-in braai on the patio' },
-    { src: 'bay-view', caption: 'Looking out over Mossel Bay', wide: true },
+    { src: 'bathroom-2', caption: 'Second bathroom, with a shower and bath' },
+    { src: 'back-stoep', caption: 'Back stoep with a sea view' },
+    { src: 'braai', caption: 'Built-in braai on the back stoep' },
   ],
 
   // The house pin sits on Klipper Street; the exact address is shared once guests book.

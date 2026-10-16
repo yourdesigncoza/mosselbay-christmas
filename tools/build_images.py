@@ -14,12 +14,11 @@ OUT = ROOT / "assets" / "img" / "photos"
 
 HERO = "stoep-view"
 SOURCES = {
-    "stoep-view": "20260915_112709.jpg",
+    "stoep-view": "20261016_134242.jpg",
     "lounge-dining": "20261016_112818.jpg",
-    "bay-view": "WhatsApp Image 2026-10-04 at 14.09.46.jpeg",
     "study": "20260915_112608.jpg",
     "kitchen": "20260915_111741.jpg",
-    "braai-patio": "20260915_111937.jpg",
+    "back-stoep": "20261016_133537.jpg",
     "braai": "20260915_111945.jpg",
     "dining": "20260915_112740.jpg",
     "tv-lounge": "20260915_112731.jpg",
@@ -35,7 +34,7 @@ SOURCES = {
     "tv-lounge-2": "20260915_112717.jpg",
     "bedroom-2b": "20260915_112815.jpg",
 }
-# Left out: IMG-20260915-WA0078.jpg (a WhatsApp copy of tv-lounge) and IMG-20260915-WA0079.jpg (owner's choice).
+# Left out: IMG-20260915-WA0078.jpg, a smaller WhatsApp copy of the tv-lounge photo.
 
 # Hidden before resizing. Boxes are pixels in the upright original.
 # COVER pastes the plain door panel dx pixels to the side over the house number on the garage door.
