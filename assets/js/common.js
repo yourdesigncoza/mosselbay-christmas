@@ -33,9 +33,11 @@
 
   const phoneDigits = S.contact.phone.replace(/\D/g, '');
   const intlPhone = '27' + phoneDigits.replace(/^0/, '');
+  // Every WhatsApp and email enquiry ends with the reference, so the owner knows it came via the card.
+  const withRef = (body) => (S.contact.ref ? `${body}\n\nRef: ${S.contact.ref}` : body);
   const links = {
-    whatsapp: (text) => `https://wa.me/${intlPhone}?text=${encodeURIComponent(text)}`,
-    email: (subject, body) => `mailto:${S.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+    whatsapp: (text) => `https://wa.me/${intlPhone}?text=${encodeURIComponent(withRef(text))}`,
+    email: (subject, body) => `mailto:${S.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(withRef(body))}`,
     tel: () => `tel:+${intlPhone}`,
   };
   // The message used when no dates have been picked yet.

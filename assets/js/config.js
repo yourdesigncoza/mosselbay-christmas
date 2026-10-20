@@ -14,7 +14,8 @@ window.SITE = {
   // Confirmed bookings: guests arrive on "from" and leave on "to", e.g. { from: '2026-12-19', to: '2027-01-02' }.
   booked: [],
 
-  contact: { phone: '084 868 2186', email: 'marisajansevanvuuren3@gmail.com' },
+  // ref is added as the last line of every WhatsApp and email enquiry. Leave it empty ('') to drop it.
+  contact: { phone: '084 868 2186', email: 'marisajansevanvuuren3@gmail.com', ref: 'KLIPPER-CARD' },
 
   // Gallery order, as a walk through the house. "wide" photos take a full row on phones and a 2x2 block on
   // computers; keep the plain photos between wide ones in multiples of 4 so the grid has no gaps. A wide photo placed last becomes a full-width banner.
