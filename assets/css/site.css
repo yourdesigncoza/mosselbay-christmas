@@ -144,18 +144,17 @@ h1, h2, h3, p { margin: 0; }
 .day small { font: 600 .58rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--postbox); }
 .day.out { color: #A7B8BD; }
 .day.out small { color: #A7B8BD; }
-.day.open { background: var(--mist); }
+.day.open { background: var(--harbour-pale); }
 .day.booked { background: repeating-linear-gradient(135deg, #E2E9EA 0 5px, #F4F7F7 5px 10px); color: #8DA2A8; text-decoration: line-through; }
-.day.min { background: var(--harbour-pale); }
-.day.stay { background: var(--harbour-pale); }
-.day.can { background: #fff; box-shadow: inset 0 0 0 2px var(--harbour); cursor: pointer; }
-.day.can:hover { background: #E8F3F6; }
+.day.min, .day.stay { background: #9CC2CF; }
+.day.can, .key-open { background: var(--harbour-pale); box-shadow: inset 0 0 0 2px var(--harbour); }
+.day.can { cursor: pointer; }
+.day.can:hover { background: #BCD9E2; }
 .day.start, .day.end { background: var(--harbour); color: #fff; box-shadow: none; }
 .day.start small, .day.end small { color: #fff; }
 
 .cal-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .78rem; color: var(--ink-soft); margin-top: 12px; }
 .key { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: -2px; margin-right: 6px; }
-.key-open { background: #fff; box-shadow: inset 0 0 0 2px var(--harbour); }
 .key-stay { background: var(--harbour); }
 .key-booked { background: repeating-linear-gradient(135deg, #CBD6D8 0 3px, #F4F7F7 3px 6px); }
 
