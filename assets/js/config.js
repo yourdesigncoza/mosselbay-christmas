@@ -2,7 +2,7 @@
    Dates are YYYY-MM-DD. After editing, commit and push; the page and the card update themselves. */
 window.SITE = {
   // Guests can arrive from firstNight and must leave by lastCheckOut. No stay is longer than maxNights.
-  season: { firstNight: '2026-12-19', lastCheckOut: '2027-01-04', maxNights: 14 },
+  season: { firstNight: '2026-12-15', lastCheckOut: '2027-01-05', maxNights: 14 },
 
   // Each rate runs from its minNights up to the next rate; the last one up to maxNights.
   // The shortest stay is the smallest minNights.
