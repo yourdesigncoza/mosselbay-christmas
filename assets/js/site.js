@@ -1,7 +1,7 @@
-/* Page behaviour: photo gallery, date picker + enquiry links, area map and places list. */
+/* Page behaviour: photo gallery, availability calendar, area map and places list. */
 (function () {
   const S = window.SITE;
-  const { DAY, season, minNights, maxNights, rateFor, rates, isBooked, addDays, nightsBetween, fmt, rand, links, generic, values } = window.Stay;
+  const { DAY, season, isBooked, addDays, fmt } = window.Stay;
   const $ = (sel, root = document) => root.querySelector(sel);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
@@ -51,123 +51,18 @@
     if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
   });
 
-  /* ---------- Dates, price and enquiry ---------- */
-  const freeRun = (from, to) => { for (let t = from; t < to; t += DAY) if (isBooked(t)) return false; return true; };
-  const canStart = (t) => t >= season.start && addDays(t, minNights) <= season.end && freeRun(t, addDays(t, minNights));
-  const canEnd = (start, t) => t >= addDays(start, minNights) && t <= addDays(start, maxNights) && t <= season.end && freeRun(start, t);
-  const longFmt = (t) => fmt(t, { weekday: true, year: true });
-
-  const state = { start: null, end: null };
-  const cal = $('[data-cal]');
-  const stepEl = $('[data-step]');
-  const summary = $('[data-summary]');
+  /* ---------- Availability calendar: display only, guests send their own dates ---------- */
   const mondayOf = (t) => addDays(t, -((new Date(t).getUTCDay() + 6) % 7));
   const gridStart = mondayOf(season.start);
   const gridEnd = addDays(mondayOf(season.end), 6);
-  let anyStart = false;
-  for (let t = season.start; t < season.end; t += DAY) if (canStart(t)) { anyStart = true; break; }
-
-  function dayClasses(t) {
-    const { start, end } = state;
-    const c = ['day'];
-    if (t < season.start || t > season.end) c.push('out');
-    else if (isBooked(t)) c.push('booked');
-    else c.push('open');
-    if (t === start) c.push('start');
-    if (t === end) c.push('end');
-    if (start && end && t > start && t < end) c.push('stay');
-    if (start && !end && t > start && t < addDays(start, minNights)) c.push('min');
-    return c.join(' ');
+  let cells = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => `<span class="dow">${d}</span>`).join('');
+  for (let t = gridStart; t <= gridEnd; t += DAY) {
+    const d = new Date(t);
+    const month = t === gridStart || d.getUTCDate() === 1 ? `<small>${fmt(t).split(' ')[1]}</small>` : '';
+    const kind = t < season.start || t > season.end ? 'out' : isBooked(t) ? 'booked' : 'open';
+    cells += `<span class="day ${kind}">${month}<span>${d.getUTCDate()}</span>${kind === 'booked' ? '<span class="sr-only"> booked</span>' : ''}</span>`;
   }
-  const selectable = (t) => (state.start && !state.end ? canEnd(state.start, t) || canStart(t) : canStart(t));
-
-  function renderCal() {
-    const heads = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => `<span class="dow">${d}</span>`).join('');
-    let cells = '';
-    for (let t = gridStart; t <= gridEnd; t += DAY) {
-      const d = new Date(t);
-      const month = t === gridStart || d.getUTCDate() === 1 ? `<small>${fmt(t).split(' ')[1]}</small>` : '';
-      const ok = selectable(t);
-      const hint = ok && !(state.start && state.end); // outline tappable days until both dates are picked
-      cells += `<button type="button" class="${dayClasses(t)}${hint ? ' can' : ''}" data-day="${t}" ${ok ? '' : 'disabled'}
-        aria-label="${longFmt(t)}${isBooked(t) ? ', booked' : ''}" aria-pressed="${t === state.start || t === state.end}">${month}<span>${d.getUTCDate()}</span></button>`;
-    }
-    cal.innerHTML = heads + cells;
-  }
-
-  function nextTier(nights) {
-    const better = rates.filter((r) => r.minNights > nights).pop();
-    return better && canEnd(state.start, addDays(state.start, better.minNights)) ? better : null;
-  }
-
-  function renderSummary() {
-    const { start, end } = state;
-    if (!anyStart) {
-      stepEl.innerHTML = `<strong>Christmas ${values.seasonYear} is fully booked.</strong> Ask us about other dates.`;
-      summary.hidden = true;
-      return;
-    }
-    if (!start) stepEl.innerHTML = '<strong>Step 1 of 2:</strong> tap the day you arrive.';
-    else if (!end) stepEl.innerHTML = `<strong>Step 2 of 2:</strong> arriving ${fmt(start, { weekday: true })}. Now tap the day you leave, ${minNights} to ${maxNights} nights later.`;
-    else stepEl.innerHTML = '<strong>Your dates are set.</strong> Send them to us below.';
-
-    summary.hidden = !(start && end);
-    if (!(start && end)) return;
-    const nights = nightsBetween(start, end);
-    const rate = rateFor(nights);
-    $('[data-summary-dates]').innerHTML = `${longFmt(start)} <span aria-hidden="true">→</span><span class="sr-only">to</span> ${longFmt(end)}`;
-    $('[data-summary-total]').innerHTML = `${nights} nights × ${rand(rate.perNight)} = <strong>${rand(nights * rate.perNight)}</strong>`;
-    const tier = nextTier(nights);
-    const tip = $('[data-summary-tip]');
-    tip.hidden = !tier;
-    if (tier) {
-      const leave = addDays(start, tier.minNights);
-      tip.textContent = `Stay ${tier.minNights} nights (leave ${fmt(leave, { weekday: true })}) and it's ${rand(tier.perNight)} a night: ${rand(tier.minNights * tier.perNight)} in total.`;
-    }
-  }
-
-  function message() {
-    const { start, end } = state;
-    if (!(start && end)) return generic();
-    const nights = nightsBetween(start, end);
-    const rate = rateFor(nights);
-    return {
-      subject: `Booking enquiry: ${fmt(start)} – ${fmt(end, { year: true })}`,
-      body: [
-        "Hi, I'd like to book your Mossel Bay holiday home.",
-        `Arrive: ${longFmt(start)}`,
-        `Leave: ${longFmt(end)}`,
-        `${nights} nights × ${rand(rate.perNight)} = ${rand(nights * rate.perNight)}`,
-        'Are these dates available?',
-      ].join('\n'),
-    };
-  }
-
-  function updateLinks() {
-    const m = message();
-    $('[data-enquire="whatsapp"]').href = links.whatsapp(m.body);
-    $('[data-enquire="email"]').href = links.email(m.subject, m.body);
-  }
-
-  function render() {
-    renderCal();
-    renderSummary();
-    updateLinks();
-  }
-
-  cal.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-day]');
-    if (!btn) return;
-    const t = +btn.dataset.day;
-    if (state.start && !state.end && canEnd(state.start, t)) state.end = t;
-    else if (canStart(t)) { state.start = t; state.end = null; }
-    render();
-    $(`[data-day="${t}"]`, cal)?.focus();
-  });
-  $('[data-reset]').addEventListener('click', () => { state.start = state.end = null; render(); });
-
-
-  render();
+  $('[data-cal]').innerHTML = cells;
 
   /* ---------- Map + places ---------- */
   const mapsUrl = (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;

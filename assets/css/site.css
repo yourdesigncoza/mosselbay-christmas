@@ -46,7 +46,6 @@ h1, h2, h3, p { margin: 0; }
 .btn-outline { border-color: var(--ink); color: var(--ink); background: transparent; }
 .btn-outline:hover { background: var(--mist); }
 .btn-small { min-height: 46px; padding: 0 18px; background: var(--paper); color: var(--ink); }
-.link-btn { background: none; border: 0; padding: 0; font: 700 .95rem var(--font-body); color: var(--harbour-deep); text-decoration: underline; cursor: pointer; }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -130,39 +129,25 @@ h1, h2, h3, p { margin: 0; }
 @media (min-width: 900px) {
   .wrap-dates { max-width: 1060px; }
   .booking { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 56px; align-items: start; }
-  .booking-side .summary { margin-top: 0; }
-  .booking-side .summary[hidden] + .guests { margin-top: 0; }
+  .booking-side .guests { margin-top: 0; }
 }
-.step { font-size: 1.05rem; min-height: 3.2em; }
 .cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin-top: 10px; }
 .dow { text-align: center; font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); padding-bottom: 4px; }
 .day {
-  position: relative; aspect-ratio: 1; padding: 0; border: 0; border-radius: 8px;
+  position: relative; aspect-ratio: 1; border-radius: 8px;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
-  font: 700 1.05rem/1 var(--font-body); color: var(--ink); background: transparent;
+  font: 700 1.05rem/1 var(--font-body); color: var(--ink);
 }
 .day small { font: 600 .58rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--postbox); }
 .day.out { color: #A7B8BD; }
 .day.out small { color: #A7B8BD; }
 .day.open { background: var(--harbour-pale); }
 .day.booked { background: repeating-linear-gradient(135deg, #E2E9EA 0 5px, #F4F7F7 5px 10px); color: #8DA2A8; text-decoration: line-through; }
-.day.min, .day.stay { background: #9CC2CF; }
-.day.can, .key-open { background: var(--harbour-pale); box-shadow: inset 0 0 0 2px var(--harbour); }
-.day.can { cursor: pointer; }
-.day.can:hover { background: #BCD9E2; }
-.day.start, .day.end { background: var(--harbour); color: #fff; box-shadow: none; }
-.day.start small, .day.end small { color: #fff; }
 
 .cal-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .78rem; color: var(--ink-soft); margin-top: 12px; }
 .key { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: -2px; margin-right: 6px; }
-.key-stay { background: var(--harbour); }
+.key-open { background: var(--harbour-pale); }
 .key-booked { background: repeating-linear-gradient(135deg, #CBD6D8 0 3px, #F4F7F7 3px 6px); }
-
-.summary { margin-top: 24px; padding: 18px 20px; border-radius: 10px; background: var(--mist); border-left: 5px solid var(--harbour); }
-.summary-dates { font: 600 .9rem var(--font-mono); }
-.summary-total { font: 800 clamp(1.6rem, 7vw, 2rem)/1.05 var(--font-display); text-transform: uppercase; margin: 6px 0; }
-.summary-total strong { color: var(--harbour-deep); }
-.summary-tip { padding: 8px 12px; margin: 10px 0; border-radius: 6px; background: #FBF1E1; border-left: 3px solid var(--sandstone); font-size: .95rem; }
 
 .guests { margin: 28px 0 0; padding: 12px 16px; border: 2px solid var(--ink); border-radius: 8px; font-size: 1.05rem; }
 

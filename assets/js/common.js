@@ -8,7 +8,6 @@
 
   const parse = (iso) => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10));
   const addDays = (t, n) => t + n * DAY;
-  const nightsBetween = (a, b) => Math.round((b - a) / DAY);
   const fmt = (t, { weekday = false, year = false } = {}) => {
     const d = new Date(t);
     return [weekday && DAYS[d.getUTCDay()], d.getUTCDate(), MONTHS[d.getUTCMonth()], year && d.getUTCFullYear()]
@@ -19,7 +18,6 @@
   const rates = [...S.rates].sort((a, b) => b.minNights - a.minNights);
   const minNights = rates[rates.length - 1].minNights;
   const maxNights = S.season.maxNights;
-  const rateFor = (nights) => rates.find((r) => nights >= r.minNights);
   // "12–13 nights" or "14 nights": a rate runs up to the next one, the longest up to maxNights.
   const rateNights = (r) => {
     const hi = (rates[rates.indexOf(r) - 1]?.minNights ?? maxNights + 1) - 1;
@@ -40,7 +38,7 @@
     email: (subject, body) => `mailto:${S.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(withRef(body))}`,
     tel: () => `tel:+${intlPhone}`,
   };
-  // The message used when no dates have been picked yet.
+  // The message every WhatsApp and email link opens with.
   const generic = () => ({
     subject: `Mossel Bay holiday home, Christmas ${year}`,
     body: `Hi, I'm interested in your Mossel Bay holiday home for Christmas (${fmt(season.start)} – ${fmt(season.end)}). Which dates are still open?`,
@@ -91,6 +89,6 @@
     });
   }
 
-  window.Stay = { DAY, parse, addDays, nightsBetween, fmt, rand, rateFor, rates, minNights, maxNights, season, isBooked, links, generic, values, fill };
+  window.Stay = { DAY, parse, addDays, fmt, rand, rates, minNights, maxNights, season, isBooked, links, generic, values, fill };
   fill();
 })();

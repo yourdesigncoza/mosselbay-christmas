@@ -12,7 +12,7 @@ python3 -m http.server 8000      # preview at http://localhost:8000/ (the map ne
 
 Card preview: `http://localhost:8000/card.html` (A6) and `card.html?sheet=a4` (four-up). Python tools need Pillow (`build_images.py`) and segno (`build_qr.py`); `build_card.sh` needs `google-chrome` and `pdftoppm`.
 
-Verification is manual: load the page in a browser and check the console, the date picker, the map pins and the card.
+Verification is manual: load the page in a browser and check the console, the calendar, the map pins and the card.
 
 ## Architecture
 
@@ -20,11 +20,11 @@ Verification is manual: load the page in a browser and check the console, the da
 - `config.js` sets `window.SITE`, the single source for anything date-, price-, contact-, photo- or place-related.
 - `common.js` derives everything from it, exposes `window.Stay`, and on load fills `[data-fill="<key>"]` (keys = the `values` object), `[data-link="whatsapp|email|tel"]` and `[data-postmark]`. New config-driven text goes into `values`, then into markup as `data-fill`.
 - `card.html` clones its `<template>` in an inline script *before* `common.js` runs, so `fill()` reaches every card copy.
-- `site.js` builds the gallery, lightbox, date picker, enquiry links, map pins, places list and the phone-only bottom dock.
+- `site.js` builds the gallery, lightbox, availability calendar, map pins, places list and the phone-only bottom dock. Every WhatsApp/email button uses `data-link`, so they all open the same `generic()` message.
 
-**Dates.** Everything is a UTC-midnight millisecond timestamp (`Stay.parse` uses `Date.UTC`; arithmetic is `DAY` steps; formatting uses `getUTC*`). Never mix in local-time `Date`. A booking `{from, to}` blocks nights `from` up to but not including `to`. `canStart`/`canEnd` in `site.js` enforce season bounds, min/max nights and booked nights.
+**Dates.** Everything is a UTC-midnight millisecond timestamp (`Stay.parse` uses `Date.UTC`; arithmetic is `DAY` steps; formatting uses `getUTC*`). Never mix in local-time `Date`. A booking `{from, to}` blocks nights `from` up to but not including `to`. The calendar is display only (no date picking): season days show open or booked, and guests send their own dates.
 
-**Rates.** `common.js` sorts `rates` by `minNights` descending; `rateFor(n)` takes the first tier that fits. `values.rateFrom`/`rateLongNights` come from the longest tier, `rateStd`/`rateStdNights` from the shortest. The rates `<dl>` in `index.html` shows exactly those two, so a third tier in config prices correctly in the picker but won't appear in that list without a markup change.
+**Rates.** `common.js` sorts `rates` by `minNights` descending. `values.rateFrom`/`rateLongNights` come from the longest tier, `rateStd`/`rateStdNights` from the shortest. The rates `<dl>` in `index.html` shows exactly those two, so a third tier in config won't appear on the page without a markup change.
 
 **Map.** `tools/build_map.py` turns `tools/data/osm.json` into `assets/img/map.svg` (base layers only) and writes its lat/lng bounds to the SVG's `data-bbox`. `site.js` fetches the SVG and projects `SITE.places` and `SITE.home` onto it linearly from that bbox. Places outside the bbox become edge arrows. `label: n|s|e|w` sets which side of the pin the name sits.
 

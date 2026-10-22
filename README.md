@@ -11,7 +11,7 @@ Everything is in `assets/js/config.js`. The page and the card both read it.
 
 - **Season:** `season.firstNight` (first arrival day), `season.lastCheckOut` (the day guests must leave by) and `season.maxNights` (the longest stay).
 - **Rates:** each entry is "from this many nights, this price per night", up to the next entry (the last one up to `season.maxNights`). The smallest `minNights` is the minimum stay.
-- **Bookings:** add `{ from: 'YYYY-MM-DD', to: 'YYYY-MM-DD' }` (arrival day, departure day) to `booked`. Those nights show as booked. When no arrival day is left, the page says Christmas is fully booked.
+- **Bookings:** add `{ from: 'YYYY-MM-DD', to: 'YYYY-MM-DD' }` (arrival day, departure day) to `booked`. Those nights show as booked on the calendar. The calendar is display only: guests send their dates by WhatsApp or email.
 - **Contact:** `contact.phone` (the WhatsApp and call links are built from this), `contact.email`, and `contact.ref` (added as a "Ref:" line at the end of every WhatsApp and email enquiry, so you know it came via the card).
 - **Photos and places:** `photos` sets the gallery order and captions. `places` sets the map pins and the list under the map.
 
