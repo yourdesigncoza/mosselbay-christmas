@@ -22,7 +22,7 @@ window.SITE = {
   // ref is added as the last line of every WhatsApp and email enquiry. Leave it empty ('') to drop it.
   // A ref on the page address overrides it, e.g. ...mosselbay-christmas/?ref=FB-GROUP (letters, digits and
   // hyphens, up to 20 characters, sent in capitals; anything else is ignored and this ref is used).
-  contact: { phone: '079 177 1970', email: 'marisajansevanvuuren3@gmail.com', ref: 'KLIPPER-CARD' },
+  contact: { phone: '079 177 1970', email: 'support@yourdesign.co.za', ref: 'KLIPPER-CARD' },
 
   // Gallery order, as a walk through the house. "wide" photos take a full row on phones and a 2x2 block on
   // computers; keep the plain photos between wide ones in multiples of 4 so the grid has no gaps. A wide photo placed last becomes a full-width banner.
