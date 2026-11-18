@@ -18,13 +18,15 @@ Verification is manual: load the page in a browser and check the console, the ca
 
 **Script chain.** Both pages load `config.js` → `common.js`; `index.html` then loads `site.js`. Order matters:
 - `config.js` sets `window.SITE`, the single source for anything date-, price-, contact-, photo- or place-related.
-- `common.js` derives everything from it, exposes `window.Stay`, and on load fills `[data-fill="<key>"]` (keys = the `values` object), `[data-link="whatsapp|email|tel"]` and `[data-postmark]`. New config-driven text goes into `values`, then into markup as `data-fill`.
+- `common.js` derives everything from it, exposes `window.Stay`, and on load fills `[data-fill="<key>"]` (keys = the `values` object), `[data-link="whatsapp|email|tel"]` and `[data-postmark]`. New config-driven text goes into `values`, then into markup as `data-fill`. In `index.html` each `data-fill` element holds the current value as fallback text (no-JS visitors, crawlers, link previews); `fill()` logs a console warning when a non-empty fallback differs from the value.
+- `?ref=` on the page URL replaces `contact.ref` in the "Ref:" line of the WhatsApp/email messages (`withRef` in `common.js`). It is uppercased and must match `^[A-Z0-9-]{1,20}$`, otherwise the config ref is used. Refs in use: `FB-GROUP`, `WA-REPLY`; the card QR has none, so it stays `KLIPPER-CARD`.
+- `fullyBooked: true` in config puts `is-booked` on `<html>`. CSS then hides `[data-when="open"]` (badge, hero buttons, rates, booking buttons, dock) and shows `[data-when="booked"]`; `isBooked()` returns true for every day, and `generic()` drops the dates question.
 - `card.html` clones its `<template>` in an inline script *before* `common.js` runs, so `fill()` reaches every card copy.
 - `site.js` builds the gallery, lightbox, availability calendar, map pins, places list and the phone-only bottom dock. Every WhatsApp/email button uses `data-link`, so they all open the same `generic()` message.
 
 **Dates.** Everything is a UTC-midnight millisecond timestamp (`Stay.parse` uses `Date.UTC`; arithmetic is `DAY` steps; formatting uses `getUTC*`). Never mix in local-time `Date`. A booking `{from, to}` blocks nights `from` up to but not including `to`. The calendar is display only (no date picking): season days show open or booked, and guests send their own dates.
 
-**Rates.** `common.js` sorts `rates` by `minNights` descending. `values.rateFrom`/`rateLongNights` come from the longest tier, `rateStd`/`rateStdNights` from the shortest. The rates `<dl>` in `index.html` shows exactly those two, so a third tier in config won't appear on the page without a markup change.
+**Rates.** `common.js` sorts `rates` by `minNights` descending and exposes `rateNights(r)` ("10–21 nights"). `site.js` renders one row per rate, shortest stay first, into the `[data-rates]` `<dl>`, replacing the static fallback row in `index.html`. `values.rateFrom` is the cheapest (longest-stay) price (dock, card); `values.rateStd` is the shortest-stay price (hero badge). With one rate they are equal.
 
 **Map.** `tools/build_map.py` turns `tools/data/osm.json` into `assets/img/map.svg` (base layers only) and writes its lat/lng bounds to the SVG's `data-bbox`. `site.js` fetches the SVG and projects `SITE.places` and `SITE.home` onto it linearly from that bbox. Places outside the bbox become edge arrows. `label: n|s|e|w` sets which side of the pin the name sits.
 
@@ -37,6 +39,7 @@ Verification is manual: load the page in a browser and check the console, the ca
 ## Gotchas
 
 - House copy (description, beds, amenities, "Sleeps 8", meta/OG description) is hard-coded in `index.html`, and partly repeated in `card.html`. It is not in `config.js`.
+- Price, dates, nights, phone and email are copied into `index.html` as fallbacks: `data-fill` contents, the rates fallback row, and the `<title>`, meta description and `og:title`/`og:description`. Change them with `config.js`. The `<head>` tags don't react to `fullyBooked`. Prices are written `R3&nbsp;000` in body fallbacks because `Stay.rand` outputs a non-breaking space.
 - Privacy is deliberate: no street number or exact address anywhere. The `home` pin is approximate, and photos are redacted at build time. Keep it that way.
 - Copy is South African English (`en-ZA`: stoep, braai, favourite). Prices are formatted by `Stay.rand` (`R3 000`).
 - Commit messages follow conventional commits with a scope, e.g. `feat(content): …`, `style(mobile): …`, `chore(card): …`.

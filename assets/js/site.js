@@ -1,7 +1,7 @@
 /* Page behaviour: photo gallery, availability calendar, area map and places list. */
 (function () {
   const S = window.SITE;
-  const { DAY, season, isBooked, addDays, fmt } = window.Stay;
+  const { DAY, season, isBooked, addDays, fmt, rand, rates, rateNights } = window.Stay;
   const $ = (sel, root = document) => root.querySelector(sel);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
@@ -50,6 +50,10 @@
     touchX = null;
     if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
   });
+
+  /* ---------- Rates: one row per rate, shortest stay first (replaces the fallback row in the markup) ---------- */
+  $('[data-rates]').innerHTML = [...rates].reverse().map((r) => `
+    <div><dt>${rateNights(r)}</dt><dd>${rand(r.perNight)} <small>a night</small></dd></div>`).join('');
 
   /* ---------- Availability calendar: display only, guests send their own dates ---------- */
   const mondayOf = (t) => addDays(t, -((new Date(t).getUTCDay() + 6) % 7));

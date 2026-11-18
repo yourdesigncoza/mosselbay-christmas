@@ -1,21 +1,28 @@
 /* Everything you might want to change lives here: dates, rates, bookings, contact, photos, places.
-   Dates are YYYY-MM-DD. After editing, commit and push; the page and the card update themselves. */
+   Dates are YYYY-MM-DD. After editing, commit and push; the page and the card update themselves.
+   index.html also shows the price, dates, nights and phone as plain text (for link previews, search engines
+   and phones without JavaScript): after changing those here, change the same text in index.html too. */
 window.SITE = {
   // Guests can arrive from firstNight and must leave by lastCheckOut. No stay is longer than maxNights.
-  season: { firstNight: '2026-12-15', lastCheckOut: '2027-01-05', maxNights: 14 },
+  season: { firstNight: '2026-12-15', lastCheckOut: '2027-01-05', maxNights: 21 },
 
   // Each rate runs from its minNights up to the next rate; the last one up to maxNights.
-  // The shortest stay is the smallest minNights.
+  // The shortest stay is the smallest minNights. The page lists one row per rate.
   rates: [
-    { minNights: 12, perNight: 3200 },
-    { minNights: 14, perNight: 3000 },
+    { minNights: 10, perNight: 3000 },
   ],
 
   // Confirmed bookings: guests arrive on "from" and leave on "to", e.g. { from: '2026-12-19', to: '2027-01-02' }.
   booked: [],
 
+  // true = the festive season is taken. The page then says it's booked, greys out the whole calendar and
+  // hides the prices and the enquiry buttons. Leave it false while you're still taking enquiries.
+  fullyBooked: false,
+
   // ref is added as the last line of every WhatsApp and email enquiry. Leave it empty ('') to drop it.
-  contact: { phone: '084 868 2186', email: 'marisajansevanvuuren3@gmail.com', ref: 'KLIPPER-CARD' },
+  // A ref on the page address overrides it, e.g. ...mosselbay-christmas/?ref=FB-GROUP (letters, digits and
+  // hyphens, up to 20 characters, sent in capitals; anything else is ignored and this ref is used).
+  contact: { phone: '079 177 1970', email: 'marisajansevanvuuren3@gmail.com', ref: 'KLIPPER-CARD' },
 
   // Gallery order, as a walk through the house. "wide" photos take a full row on phones and a 2x2 block on
   // computers; keep the plain photos between wide ones in multiples of 4 so the grid has no gaps. A wide photo placed last becomes a full-width banner.

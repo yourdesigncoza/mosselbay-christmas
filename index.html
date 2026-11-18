@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Holiday home in Mossel Bay · Christmas 2026</title>
-  <meta name="description" content="Family holiday home with sea views over the harbour in Mossel Bay. Sleeps 8. Available for Christmas 2026.">
+  <title>Holiday home in Mossel Bay · Christmas 2026 · R3 000 a night</title>
+  <meta name="description" content="Family holiday home with sea views over the harbour in Mossel Bay. Sleeps 8. Available 15 December 2026 to 5 January 2027, one booking of 10 to 21 nights at R3 000 a night.">
   <meta name="theme-color" content="#0F3442">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Holiday home in Mossel Bay · Christmas 2026">
-  <meta property="og:description" content="Sea views over the harbour, sleeps 8. Photos, open dates and prices.">
+  <meta property="og:title" content="Holiday home in Mossel Bay · Christmas 2026 · R3 000 a night">
+  <meta property="og:description" content="Sea views over the harbour, sleeps 8. 15 Dec 2026 – 5 Jan 2027, min. 10 nights, R3 000 a night. One exclusive festive booking.">
   <meta property="og:url" content="https://yourdesigncoza.github.io/mosselbay-christmas/">
   <meta property="og:image" content="https://yourdesigncoza.github.io/mosselbay-christmas/assets/img/og.jpg">
   <meta property="og:image:width" content="1200">
@@ -31,8 +31,10 @@
     <p class="eyebrow">To let · Klipper Street</p>
     <h1 class="hero-title">Mossel Bay</h1>
     <p class="hero-lede">A summer Christmas above the harbour.</p>
-    <p class="hero-meta">Sleeps 8 · <span class="nowrap" data-fill="seasonShort"></span> · <span class="nowrap">from <span data-fill="rateFrom"></span> a night</span></p>
-    <div class="actions">
+    <p class="hero-meta">Sleeps 8 · <span class="nowrap" data-fill="seasonShort">15 Dec – 5 Jan</span></p>
+    <p class="badge" data-when="open"><span class="nowrap">One exclusive festive booking ·</span> <span class="nowrap">Min. <span data-fill="minNights">10</span> nights ·</span> <span class="nowrap"><span data-fill="rateStd">R3&nbsp;000</span> a night</span></p>
+    <p class="badge" data-when="booked">Booked for Christmas <span data-fill="seasonYear">2026</span></p>
+    <div class="actions" data-when="open">
       <a class="btn btn-light" href="#dates">See dates &amp; prices</a>
       <a class="btn btn-whatsapp" data-link="whatsapp" target="_blank" rel="noopener">
         <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp us
@@ -81,11 +83,12 @@
   <section class="section dates" id="dates" aria-labelledby="dates-title">
     <div class="wrap wrap-dates">
       <h2 class="section-title" id="dates-title">Dates &amp; prices</h2>
-      <p class="lede">The house is free from <strong data-fill="seasonStart"></strong> to <strong data-fill="seasonEnd"></strong>. Stays are <span data-fill="minNights"></span> to <span data-fill="maxNights"></span> nights.</p>
+      <p class="lede" data-when="open">Available <strong class="nowrap" data-fill="seasonStartLong">15 December 2026</strong> to <strong class="nowrap" data-fill="seasonEndLong">5 January 2027</strong>. Minimum stay <span data-fill="minNights">10</span> nights, one exclusive booking for the festive period.</p>
+      <p class="lede" data-when="booked">The house is booked for the festive period, <strong class="nowrap" data-fill="seasonStartLong">15 December 2026</strong> to <strong class="nowrap" data-fill="seasonEndLong">5 January 2027</strong>. Thank you to everyone who asked.</p>
 
-      <dl class="rates">
-        <div><dt><span data-fill="rateStdNights"></span></dt><dd><span data-fill="rateStd"></span> <small>a night</small></dd></div>
-        <div><dt><span data-fill="rateLongNights"></span></dt><dd><span data-fill="rateFrom"></span> <small>a night</small></dd></div>
+      <!-- site.js rebuilds this list from the rates in config.js; the row here is the no-JS fallback. -->
+      <dl class="rates" data-rates data-when="open">
+        <div><dt>10–21 nights</dt><dd>R3&nbsp;000 <small>a night</small></dd></div>
       </dl>
 
       <div class="booking" data-booking>
@@ -99,7 +102,7 @@
        <div class="booking-side">
         <p class="guests"><strong>Max 8 people:</strong> 4&nbsp;adults and 4&nbsp;children.</p>
 
-        <div class="actions">
+        <div class="actions" data-when="open">
           <a class="btn btn-whatsapp" data-link="whatsapp" target="_blank" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Send on WhatsApp
           </a>
@@ -107,7 +110,7 @@
             <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Send by email
           </a>
         </div>
-        <p class="fine">Your message opens ready to send. Add the dates you'd like; nothing is booked until we confirm.</p>
+        <p class="fine" data-when="open">Your message opens ready to send. Add the dates you'd like; nothing is booked until we confirm.</p>
        </div>
       </div>
     </div>
@@ -136,7 +139,7 @@
 <footer class="contact" id="contact">
   <div class="wrap">
     <h2 class="section-title">Ask about the house</h2>
-    <p class="lede">WhatsApp or call <a data-link="tel" data-fill="phone"></a>, or email <a data-link="email" data-fill="email"></a>.</p>
+    <p class="lede">WhatsApp or call <a data-link="tel" data-fill="phone">079 177 1970</a>, or email <a data-link="email" data-fill="email">marisajansevanvuuren3@gmail.com</a>.</p>
     <div class="actions">
       <a class="btn btn-whatsapp" data-link="whatsapp" target="_blank" rel="noopener">
         <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp us
@@ -150,8 +153,8 @@
   </div>
 </footer>
 
-<nav class="dock" data-dock aria-label="Quick links">
-  <span class="dock-price"><span class="dock-from">From</span> <strong data-fill="rateFrom"></strong> a night</span>
+<nav class="dock" data-dock data-when="open" aria-label="Quick links">
+  <span class="dock-price"><span class="dock-from">From</span> <strong data-fill="rateFrom">R3&nbsp;000</strong> a night</span>
   <a class="btn btn-small" href="#dates">Dates &amp; prices</a>
 </nav>
 
