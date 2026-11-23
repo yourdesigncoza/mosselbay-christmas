@@ -13,11 +13,11 @@ window.SITE = {
   ],
 
   // Confirmed bookings: guests arrive on "from" and leave on "to", e.g. { from: '2026-12-19', to: '2027-01-02' }.
-  booked: [],
+  booked: [{ from: '2026-12-24', to: '2027-01-03' }],
 
   // true = the festive season is taken. The page then says it's booked, greys out the whole calendar and
   // hides the prices and the enquiry buttons. Leave it false while you're still taking enquiries.
-  fullyBooked: false,
+  fullyBooked: true,
 
   // ref is added as the last line of every WhatsApp and email enquiry. Leave it empty ('') to drop it.
   // A ref on the page address overrides it, e.g. ...mosselbay-christmas/?ref=FB-GROUP (letters, digits and
